@@ -1,0 +1,13 @@
+# Descargas de preparar.sh (varios GB; se regeneran con bash preparar.sh)
+bin/
+python/
+modelos/
+
+# Generados en tiempo de ejecución
+datos/indice/*.npy
+datos/indice/*.json
+# Registros de conversaciones: se ignora el contenido, se conserva la carpeta
+registros/*
+!registros/.gitkeep
+*.log
+__pycache__/

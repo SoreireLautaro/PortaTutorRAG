@@ -1,0 +1,46 @@
+# Configuración del asistente. Todas las rutas son relativas a la raíz del proyecto (la raíz del pendrive).
+
+libro:
+  titulo: "Reingeniería de Procesos para Sistemas de Información"
+  markdown: datos/ReingenieriaProcesos-Definitivo2026-EDITADO-Libro.md
+  pdf: datos/ReingenieriaProcesos-Definitivo2026-EDITADO-Libro.pdf          # opcional: si existe, se usa para asignar números de página
+  # Secciones que no se indexan (no aportan contenido conceptual)
+  excluir_secciones: ["Índice"]
+
+indice:
+  carpeta: datos/indice
+  palabras_por_fragmento: 400
+  superposicion: 60             # palabras compartidas entre fragmentos consecutivos
+  min_palabras: 25              # secciones más cortas se unen a la siguiente
+
+servidores:
+  llm_url: http://127.0.0.1:8080
+  embeddings_url: http://127.0.0.1:8081
+
+embeddings:
+  # bge-m3 no usa prefijos. Para multilingual-e5 usar "query: " y "passage: ".
+  prefijo_consulta: ""
+  prefijo_documento: ""
+  lote: 16
+
+busqueda:
+  top_k: 5
+  # Similitud coseno mínima para considerar un fragmento relevante.
+  # Ajustarlo con: python app/indexar.py --probar "pregunta"
+  umbral: 0.55
+  # Refuerzo léxico: suma hasta este valor a los fragmentos que contienen las
+  # palabras poco frecuentes de la consulta (nombres propios como IBM o Ford).
+  peso_lexico: 0.15
+
+generacion:
+  temperatura: 0.4
+  max_tokens: 1500
+  mensajes_historial: 12        # últimos mensajes que se envían al modelo
+  # Debe coincidir con -c de llama-server en iniciar.sh / iniciar.bat. Si un turno
+  # no entra, se descartan los mensajes más viejos del historial.
+  contexto_tokens: 8192
+
+interfaz:
+  host: 127.0.0.1
+  puerto: 7860
+  abrir_navegador: true
